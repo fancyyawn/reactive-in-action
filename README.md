@@ -18,24 +18,61 @@
 * rxJs
 * rxNetty
 
-## rxjava可以干什么？
+## rxjava2可以干什么？
 
 ### push vs pull
 ```java
-interface Observable<T> { 
-    Subscription subscribe(Observer s);
+
+interface Iterator<T>{
+    boolean hasNext();
+    E next();
 }
-interface Observer<T> {
+
+public interface Emitter<T> {
+    void onNext(@NonNull T value); //
+    void onError(@NonNull Throwable error);
+    void onComplete();
+}
+
+public interface FlowableEmitter<T> extends Emitter<T> {
+
+    long requested();
+    boolean isCancelled();
+    void setDisposable(@Nullable Disposable s);
+    void setCancellable(@Nullable Cancellable c);
+}
+
+public interface Disposable {
+    void dispose(); //连接是关闭的
+    boolean isDisposed();
+}
+
+public interface Subscriber<T> {
+
+    void onSubscribe(Subscription s);
     void onNext(T t);
     void onError(Throwable t);
-    void onCompleted();
+    void onComplete();
 }
-interface Producer { 
+public interface Subscription {
     void request(long n);
+    void cancel();
 }
-interface Subscriber<T> implements Observer<T>, Subscription {
-    void setProducer(Producer p); 
+
+public interface ObservableEmitter<T> extends Emitter<T> {
+    
+    void setDisposable(@Nullable Disposable d);
+    void setCancellable(@Nullable Cancellable c);
+    boolean isDisposed();
 }
+public interface Observer<T> {
+
+    void onSubscribe(@NonNull Disposable d);
+    void onNext(@NonNull T t);
+    void onError(@NonNull Throwable e);
+    void onComplete();
+}
+
 ```
 
 ### Async versus Sync
