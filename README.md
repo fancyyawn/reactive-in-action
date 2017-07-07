@@ -1,4 +1,4 @@
-# 7-7 分享rxjava
+# reactive stream
 
 ## 参考
 * [给初学者的RxJava2.0教程](http://www.jianshu.com/u/c50b715ccaeb)
