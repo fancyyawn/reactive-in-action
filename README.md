@@ -42,8 +42,10 @@ public interface FlowableEmitter<T> extends Emitter<T> {
     void setCancellable(@Nullable Cancellable c);
 }
 
-public interface Disposable {
-    void dispose(); //连接是关闭的
+public interface ObservableEmitter<T> extends Emitter<T> {
+    
+    void setDisposable(@Nullable Disposable d);
+    void setCancellable(@Nullable Cancellable c);
     boolean isDisposed();
 }
 
@@ -54,23 +56,23 @@ public interface Subscriber<T> {
     void onError(Throwable t);
     void onComplete();
 }
-public interface Subscription {
-    void request(long n);
-    void cancel();
-}
 
-public interface ObservableEmitter<T> extends Emitter<T> {
-    
-    void setDisposable(@Nullable Disposable d);
-    void setCancellable(@Nullable Cancellable c);
-    boolean isDisposed();
-}
 public interface Observer<T> {
 
     void onSubscribe(@NonNull Disposable d);
     void onNext(@NonNull T t);
     void onError(@NonNull Throwable e);
     void onComplete();
+}
+
+public interface Subscription {
+    void request(long n);
+    void cancel();
+}
+
+public interface Disposable {
+    void dispose(); //连接是关闭的
+    boolean isDisposed();
 }
 
 ```
