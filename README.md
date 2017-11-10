@@ -20,6 +20,16 @@
 
 ## rxjava2可以干什么？
 
+* push vs pull
+* Async vs Sync
+* Lazy vs Eager
+* 任务编排
+* 限流
+* 背压，控制流速
+* 与高性能Web容器结合使用(Netty等)
+* 与MQ结合使用
+
+
 ### push vs pull
 ```java
 
